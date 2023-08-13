@@ -16,12 +16,12 @@ export default function Login() {
                     <h1>Login</h1>
                     <div className="input-box">
                         <input type="text" placeholder='Username' required />
-                        <i class='bx bxs-user'></i>
+                        <i className='bx bxs-user'></i>
                     </div>
 
                     <div className="input-box">
                         <input type="password" placeholder='Password' required />
-                        <i class='bx bxs-lock-alt'></i>
+                        <i className='bx bxs-lock-alt'></i>
                     </div>
 
                     {/* <div className="remember-forgot">
