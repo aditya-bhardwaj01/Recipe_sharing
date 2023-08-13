@@ -19,8 +19,8 @@ export default function Register() {
         navigate('/');
     };
 
-    const checkUserAvailability = () => {
-        axios.post("http://localhost:3001/auth/register", {
+    const checkUsernameAvailability = () => {
+        axios.post("http://localhost:3001/auth/register/availability", {
             username: username,
             phone: phone,
             email: email
@@ -29,19 +29,22 @@ export default function Register() {
                 swal({
                     title: "Failed!",
                     text: response.data.error,
-                    icon: "error",
-                    timer: 2000,
+                    icon: "warning",
+                    timer: 5000,
                     button: false
                 });
             }
             else{
                 swal({
                     title: "Success",
-                    text: "You have successfully registered!",
+                    text: response.data.success,
                     icon: "success",
-                    timer: 2000,
+                    timer: 5000,
                     button: false
                 });
+                document.getElementById('reg-name').value = "";
+                document.getElementById('reg-username').value = "";
+                setInitialsGiven(1)
             }
         })
     }
@@ -99,7 +102,7 @@ export default function Register() {
             });
         }
         else {
-            checkUserAvailability();
+            checkUsernameAvailability();
         }
     }
 
