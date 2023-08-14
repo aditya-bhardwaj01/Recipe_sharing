@@ -13,6 +13,8 @@ const db = mysql.createConnection({
   database: "recipe_sharing"
 });
 
+
+/* ---------------------------------  USER REGISTRATION -- USER REGISTRATION --------------------------------- */
 let otpPhone = 0, otpEmail = 0;
 let name = "", username = "", password = "", phone = "", email = "";
 
@@ -37,7 +39,6 @@ const checkAvailability = (username, phone, email, res) => {
 }
 
 const sendOTPtoEmail = async (email, res) => {
-  // ------------- FOR EMAIL ------------ //
   otpEmail = otpGen.generate(6, { digits: true, upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false });
   var nodemailer = require("nodemailer");
 
@@ -67,14 +68,12 @@ const sendOTPtoEmail = async (email, res) => {
 }
 
 const sendOTPtoPhone = async (phone, email, res) => {
-  // ------------- FOR PHONE ------------ //
   otpPhone = otpGen.generate(6, { digits: true, upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false });
 
   var sid = SID;
   var auth_token = AUTH_TOKEN;
 
   var twilio = require("twilio")(sid, auth_token);
-  // ------------- FOR PHONE ------------ //
 
   twilio.messages
     .create({
@@ -137,14 +136,52 @@ router.post("/register/otpverify", (req, res) => {
   else {
     RegisterUser(res);
   }
-  // console.log(req.body);
-  // console.log(otpPhone, otpEmail);
-  // console.log(name, username, password, phone, email);
-  // res.json({ success: "success" })
 })
 
+/* ---------------------------------  USER REGISTRATION -- USER REGISTRATION --------------------------------- */
+
+
+
+/* ---------------------------------  USER LOGIN ----------------- USER LOGIN --------------------------------- */
+
+const verifyPassword = (result, password, res) => {
+  const correctPassword = result[0].password;
+  const correctUsername = result[0].username;
+  bcrypt.compare(password, correctPassword).then(async (match) => {
+    if (!match) res.json({ error: "Incorrect Password!" })
+    else {
+      const accessToken = sign({ username: correctUsername, id: result[0].id }, "youcancomein")
+      res.json({
+        success: "Logged in",
+        accessToken: accessToken
+      });
+    }
+  });
+}
+
+const verifyCredentials = (username, password, res) => {
+  db.query("select * from users where username = ?", [username],
+    (err, result) => {
+      if(err) {
+        res.json({ error: "Some error! Please try after sometime." })
+      }
+      else{
+        if(result.length === 0){
+          res.json({ error: "Username doesn't exist" });
+        }
+        else{
+          verifyPassword(result, password, res);
+        }
+      }
+    })
+}
+
 router.post("/login", (req, res) => {
-  res.json({ success: "success" })
+  const username = req.body.username;
+  const password = req.body.password;
+  verifyCredentials(username, password, res)
 })
+
+/* ---------------------------------  USER LOGIN ----------------- USER LOGIN --------------------------------- */
 
 module.exports = router;
