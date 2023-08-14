@@ -20,8 +20,11 @@ export default function Register() {
     };
 
     const checkUsernameAvailability = () => {
+        document.getElementById("btn-continue").disabled = true;
         axios.post("http://localhost:3001/auth/register/availability", {
+            name: name,
             username: username,
+            password: password,
             phone: phone,
             email: email
         }).then((response) => {
@@ -33,6 +36,7 @@ export default function Register() {
                     timer: 5000,
                     button: false
                 });
+                document.getElementById("btn-continue").disabled = false;
             }
             else{
                 swal({
@@ -44,6 +48,7 @@ export default function Register() {
                 });
                 document.getElementById('reg-name').value = "";
                 document.getElementById('reg-username').value = "";
+                document.getElementById("btn-continue").disabled = false;
                 setInitialsGiven(1)
             }
         })
@@ -107,7 +112,37 @@ export default function Register() {
     }
 
     const verifyIdentity = () => {
-        navigate('/')
+        document.getElementById("btn-register").disabled = true;
+
+        var phoneOTP = document.getElementById('phone-otp').value;
+        var emailOTP = document.getElementById('email-otp').value;
+
+        axios.post("http://localhost:3001/auth/register/otpverify", {
+            phoneOTP: phoneOTP,
+            emailOTP: emailOTP
+        }).then((response) => {
+            if(response.data.error){
+                swal({
+                    title: "Failed!",
+                    text: response.data.error,
+                    icon: "warning",
+                    timer: 5000,
+                    button: false
+                });
+                document.getElementById("btn-register").disabled = false;
+            }
+            else{
+                swal({
+                    title: "Success",
+                    text: response.data.success,
+                    icon: "success",
+                    timer: 5000,
+                    button: false
+                });
+                document.getElementById("btn-register").disabled = false;
+                navigate('/')
+            }
+        })
     }
 
     return (
@@ -143,7 +178,7 @@ export default function Register() {
                                     <i className='bx bxs-envelope'></i>
                                 </div>
 
-                                <button className='btn' onClick={verifyContact}>Continue</button>
+                                <button className='btn' id='btn-continue' onClick={verifyContact}>Continue</button>
 
                                 <div className='register-link'>
                                     <p>
@@ -158,14 +193,14 @@ export default function Register() {
                             <div className='form'>
                                 <h1>Register</h1>
                                 <div className="input-box">
-                                    <input type="text" placeholder='OTP sent on phone' required />
+                                    <input type="text" id='phone-otp' placeholder='OTP sent on phone' required />
                                 </div>
 
                                 <div className="input-box">
-                                    <input type="text" placeholder='OTP sent on email' required />
+                                    <input type="text" id='email-otp' placeholder='OTP sent on email' required />
                                 </div>
 
-                                <button className='btn' onClick={verifyIdentity}>Register</button>
+                                <button className='btn' id='btn-register' onClick={verifyIdentity}>Register</button>
 
                                 <div className='register-link'>
                                     <p>
