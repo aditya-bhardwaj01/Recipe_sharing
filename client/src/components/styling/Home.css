@@ -1,0 +1,29 @@
+.Home {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.top-home{
+    background: url('../img/landing-image.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    height: 100vh;
+}
+
+h1{
+    color: white;
+    text-align: center;
+    font-family: cursive;
+    margin-top: 30vh;
+}
+
+.bottom-home{
+    border: solid red;
+}
+
+.single-dish{
+    border: solid green;
+    font-family: cursive;
+    padding: 1em;
+}

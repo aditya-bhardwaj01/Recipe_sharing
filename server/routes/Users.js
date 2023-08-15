@@ -85,7 +85,7 @@ const sendOTPtoPhone = async (phone, email, res) => {
       sendOTPtoEmail(email, res);
     })
     .catch(() => {
-      res.status(500).json({ error: "There was an error sending the OTP!" })
+      res.json({ error: "There was an error sending the OTP!" })
     })
 
 }
