@@ -11,7 +11,7 @@
     height: 100vh;
 }
 
-h1{
+.top-home h1{
     color: white;
     text-align: center;
     font-family: cursive;
@@ -19,11 +19,10 @@ h1{
 }
 
 .bottom-home{
-    border: solid red;
+    /* border: solid red; */
 }
 
 .single-dish{
-    border: solid green;
-    font-family: cursive;
+    /* border: solid green; */
     padding: 1em;
 }

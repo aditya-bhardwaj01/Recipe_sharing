@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react'
 import Navbar from './Navbar'
 import './styling/Home.css'
 import Typed from 'typed.js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Latest from './Latest';
 
 export default function Home() {
@@ -21,6 +23,14 @@ export default function Home() {
     };
 
     const typed = new Typed(typedTextRef.current, options);
+    AOS.init({
+      delay: 200,
+      duration: 600,
+      easing: 'ease',
+      once: false,
+      anchorPlacement: 'top-bottom', 
+    
+    });
 
     return () => {
       typed.destroy();
@@ -36,30 +46,32 @@ export default function Home() {
       </div>
 
       <div className="bottom-home">
-        <div className="single-dish">
+        <div className="single-dish" data-aos="zoom-in">
           <Latest dishType={"Appetizers"} />
         </div>
 
-        <div className="single-dish">
+        <div className="single-dish" data-aos="zoom-in">
           <Latest dishType={"Main Course"} />
         </div>
 
-        <div className="single-dish">
+        <div className="single-dish" data-aos="zoom-in">
           <Latest dishType={"Side Dishes"} />
         </div>
 
-        <div className="single-dish">
+        <div className="single-dish" data-aos="zoom-in">
           <Latest dishType={"Soups and Stews"} />
         </div>
 
-        <div className="single-dish">
+        <div className="single-dish" data-aos="zoom-in">
           <Latest dishType={"Desserts"} />
         </div>
 
-        <div className="single-dish">
+        <div className="single-dish" data-aos="zoom-in">
           <Latest dishType={"Beverages"} />
         </div>
       </div>
+
+      <div style={{height: "10vh"}}></div>
     </div>
   )
 }

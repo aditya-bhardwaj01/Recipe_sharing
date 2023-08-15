@@ -10,6 +10,9 @@ app.use(morgan('dev'));
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
 
+const homeRouter = require("./routes/Home");
+app.use("/home", homeRouter);
+
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");
 })
