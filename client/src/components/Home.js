@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import './styling/Home.css'
 import Typed from 'typed.js';
@@ -9,14 +9,16 @@ import Latest from './Latest';
 export default function Home() {
   const typedTextRef = useRef(null);
 
+  const dishes = ["Appetizers", "Main Course", "Side Dishes", "Soups and Stews", "Desserts", "Beverages"];
+
   useEffect(() => {
     const options = {
-      strings: ["Cook, Share, Delight - The Recipe Way!!", 
-                "Sharing flavors, one recipe at a time!!",
-                "Recipes that bring joy to your table!!",
-                "From kitchens to hearts, with love and recipes!!",
-                "Where ingredients meet inspiration - Recipe Sharing!!"
-              ],
+      strings: ["Cook, Share, Delight - The Recipe Way!!",
+        "Sharing flavors, one recipe at a time!!",
+        "Recipes that bring joy to your table!!",
+        "From kitchens to hearts, with love and recipes!!",
+        "Where ingredients meet inspiration - Recipe Sharing!!"
+      ],
       typeSpeed: 80,
       backSpeed: 40,
       loop: true,
@@ -28,8 +30,8 @@ export default function Home() {
       duration: 600,
       easing: 'ease',
       once: false,
-      anchorPlacement: 'top-bottom', 
-    
+      anchorPlacement: 'top-bottom',
+
     });
 
     return () => {
@@ -46,32 +48,14 @@ export default function Home() {
       </div>
 
       <div className="bottom-home">
-        <div className="single-dish" data-aos="zoom-in">
-          <Latest dishType={"Appetizers"} />
-        </div>
-
-        <div className="single-dish" data-aos="zoom-in">
-          <Latest dishType={"Main Course"} />
-        </div>
-
-        <div className="single-dish" data-aos="zoom-in">
-          <Latest dishType={"Side Dishes"} />
-        </div>
-
-        <div className="single-dish" data-aos="zoom-in">
-          <Latest dishType={"Soups and Stews"} />
-        </div>
-
-        <div className="single-dish" data-aos="zoom-in">
-          <Latest dishType={"Desserts"} />
-        </div>
-
-        <div className="single-dish" data-aos="zoom-in">
-          <Latest dishType={"Beverages"} />
-        </div>
+        {dishes.map((dish, index) => (
+          <div className="single-dish" data-aos="zoom-in">
+            <Latest dishType={dish} />
+          </div>
+        ))}
       </div>
 
-      <div style={{height: "10vh"}}></div>
+      <div style={{ height: "10vh" }}></div>
     </div>
   )
 }

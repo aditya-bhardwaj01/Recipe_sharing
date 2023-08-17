@@ -19,7 +19,6 @@ let otpPhone = 0, otpEmail = 0;
 let name = "", username = "", password = "", phone = "", email = "";
 
 const checkAvailability = (username, phone, email, res) => {
-  // console.log(username)
   return new Promise((resolve, reject) => {
     db.query("select * from users where username=? or email=?", [username, email],
       (err, result) => {
