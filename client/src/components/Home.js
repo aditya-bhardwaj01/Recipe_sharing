@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import Navbar from './Navbar'
 import './styling/Home.css'
 import Typed from 'typed.js';
@@ -10,6 +10,7 @@ export default function Home() {
   const typedTextRef = useRef(null);
 
   const dishes = ["Appetizers", "Main Course", "Side Dishes", "Soups and Stews", "Desserts", "Beverages"];
+  // const dishes = ["Appetizers"];
 
   useEffect(() => {
     const options = {
@@ -50,7 +51,7 @@ export default function Home() {
       <div className="bottom-home">
         {dishes.map((dish, index) => (
           <div className="single-dish" data-aos="zoom-in">
-            <Latest dishType={dish} />
+            <Latest key={index} dishType={dish} />
           </div>
         ))}
       </div>

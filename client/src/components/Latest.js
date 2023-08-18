@@ -18,10 +18,10 @@ export default function Latest(props) {
           timer: 5000,
           button: false
         });
-        document.getElementById("btn-continue").disabled = false;
       }
       else{
-        setPosts(response.data)
+        // setPosts(response.data)
+        console.log(response.data);
       }
     })
   }, [])
