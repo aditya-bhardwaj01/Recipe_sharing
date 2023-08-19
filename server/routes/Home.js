@@ -12,7 +12,7 @@ const db = mysql.createConnection({
 const fetchRecipes = (dishtype, recipes) => {
     // console.log(dishtype)
     return new Promise((resolve, reject) => {
-        db.query("select * from posts where category=?", [dishtype], 
+        db.query("select * from posts where category=?", [dishtype],
         (err, result) => {
             if(err){
                 reject("error");
