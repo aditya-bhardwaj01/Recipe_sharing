@@ -1,3 +1,12 @@
 .Latest h5{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+.latest-item-single{
+    border: solid red;
+}
+
+.item-image{
+    height: 200px;
+    width: 100%;
+}

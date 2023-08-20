@@ -10,7 +10,7 @@ export default function Home() {
   const typedTextRef = useRef(null);
 
   const dishes = ["Appetizers", "Main Course", "Side Dishes", "Soups and Stews", "Desserts", "Beverages"];
-  // const dishes = ["Appetizers"];
+  // const dishes = ["Side Dishes"];
 
   useEffect(() => {
     const options = {
@@ -50,8 +50,8 @@ export default function Home() {
 
       <div className="bottom-home">
         {dishes.map((dish, index) => (
-          <div className="single-dish" data-aos="zoom-in">
-            <Latest key={index} dishType={dish} />
+          <div key={index} className="single-dish" data-aos="zoom-in">
+            <Latest dishType={dish} />
           </div>
         ))}
       </div>
