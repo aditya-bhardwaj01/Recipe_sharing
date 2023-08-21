@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2023 at 06:46 PM
+-- Generation Time: Aug 21, 2023 at 12:21 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -58,6 +58,26 @@ INSERT INTO `posts` (`id`, `title`, `photo`, `category`, `userid`, `username`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `userdetails`
+--
+
+CREATE TABLE `userdetails` (
+  `id` int(10) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `profile_pic` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `userdetails`
+--
+
+INSERT INTO `userdetails` (`id`, `username`, `profile_pic`) VALUES
+(1, 'aditya124', 'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_kids_avatar_user_profile_icon_149314.png'),
+(2, 'aditya125', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -76,7 +96,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `phone`, `email`, `name`) VALUES
 (2, 'aditya124', '$2b$10$qQkJUX.Ih7rGSRVAFWu3veZ5u.NF2ZfHDTiXjRlmK.BN9vTCDVS.W', '7256891970', 'adibhardwaj444@gmail.com', 'Aditya Bhardwaj'),
-(3, 'aditya125', '$2b$10$wOQEoOlQCSBA8FvJF/2ZVOXHgr3k1iWu0Anu4uQuLh0rm1AbNlIt.', '7256891970', 'letstravel010101@gmail.com', 'Bhardwaj Aditya');
+(3, 'aditya125', '$2b$10$wOQEoOlQCSBA8FvJF/2ZVOXHgr3k1iWu0Anu4uQuLh0rm1AbNlIt.', '7256891970', 'letstravel010101@gmail.com', 'Bhardwaj Aditya'),
+(4, 'aditya127', '$2b$10$U4.ns.uLooyIt6uo33hYJuYYsEkmbqQ3q2Q5ZwmvrKCeIqsq8iakS', '7256891970', 'aditya.bhardwaj2020@vitstudent.ac.in', 'Aditya');
 
 --
 -- Indexes for dumped tables
@@ -86,6 +107,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `phone`, `email`, `name`) VAL
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `userdetails`
+--
+ALTER TABLE `userdetails`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -105,10 +132,16 @@ ALTER TABLE `posts`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `userdetails`
+--
+ALTER TABLE `userdetails`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
