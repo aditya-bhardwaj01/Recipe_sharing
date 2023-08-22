@@ -25,7 +25,7 @@ const getProfilePic = (item) => {
 
 const fetchRecipes = (dishtype) => {
     return new Promise((resolve, reject) => {
-        db.query("SELECT title, photo, username, rating FROM posts WHERE category=?", [dishtype], async (err, result) => {
+        db.query("SELECT id, title, photo, username, rating FROM posts WHERE category=?", [dishtype], async (err, result) => {
             if (err) {
                 reject(err);
             } else {
@@ -49,7 +49,6 @@ router.post("/", async (req, res) => {
 
     try {
         const result = await fetchRecipes(dishtype);
-        console.log(result);
         res.json({ items: result });
     } catch (error) {
         res.json({ error: "There was an error! Please try later" });
