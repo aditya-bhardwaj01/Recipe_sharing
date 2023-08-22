@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import swal from "sweetalert";
 import Flickity from 'flickity';
@@ -7,6 +8,7 @@ import "./styling/Latest.css";
 import no_profile_pic from "./img/no_profile_pic.png"
 
 export default function Latest(props) {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const carouselRef = useRef(null);
 
@@ -37,7 +39,6 @@ export default function Latest(props) {
 
   useEffect(() => {
     if (carouselRef.current && posts.length > 0) {
-      console.log(posts);
       var flkty = new Flickity(carouselRef.current, {
         cellAlign: 'left',
         wrapAround: true,
@@ -45,6 +46,14 @@ export default function Latest(props) {
       });
     }
   }, [posts]);
+
+  const moveToProfile = (profile) => {
+    navigate('/profile/'+profile);
+  }
+
+  const moveToItem = (itemId) => {
+    navigate('/item/'+itemId)
+  }
 
   return (
     <div className='Latest'>
@@ -56,12 +65,12 @@ export default function Latest(props) {
             {
               posts.map((item, index) => {
                 return <div key={index} className="latest-item-single">
-                  <p>
+                  <p onClick={(() => {moveToProfile(item.username)})} style={{cursor: "pointer"}}>
                     <img src={item.profile_pic == null ? no_profile_pic : item.profile_pic} alt="Recipe picture" style={{height: "40px", width: "40px", marginRight: "5px"}} />
-                    {item.username}
+                    <span className='home-username'>{item.username}</span>
                   </p>
-                  <img src={item.photo} alt="Recipe picture" className='img-fluid item-image' />
-                  <p>{item.title}</p>
+                  <img src={item.photo} alt="Recipe picture" className='img-fluid item-image' onClick={() => {moveToItem(item.id)}} />
+                  <p className='home-title' style={{cursor: "pointer"}} onClick={() => {moveToItem(item.id)}}>{item.title}</p>
                   <span>{item.rating}</span>
                 </div>
               })

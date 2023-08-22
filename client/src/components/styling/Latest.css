@@ -21,6 +21,11 @@
     width: 100%;
     border-radius: 5px;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.home-username:hover, .home-title:hover{
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 550px) {
