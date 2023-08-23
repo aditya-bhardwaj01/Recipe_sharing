@@ -6,6 +6,7 @@ import Flickity from 'flickity';
 import 'flickity/css/flickity.css';
 import "./styling/Latest.css";
 import no_profile_pic from "./img/no_profile_pic.png"
+import Star from './Star';
 
 export default function Latest(props) {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ export default function Latest(props) {
                   </p>
                   <img src={item.photo} alt="Recipe picture" className='img-fluid item-image' onClick={() => {moveToItem(item.id)}} />
                   <p className='home-title' style={{cursor: "pointer"}} onClick={() => {moveToItem(item.id)}}>{item.title}</p>
-                  <span>{item.rating}</span>
+                  <Star rating={item.rating} itemId={item.id}/>
                 </div>
               })
             }
