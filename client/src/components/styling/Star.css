@@ -1,3 +1,4 @@
-.single-star{
+.single-star, .partial-star{
     color: #FFA41C;
+    font-size: 18px;
 }

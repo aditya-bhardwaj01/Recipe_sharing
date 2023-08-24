@@ -13,6 +13,9 @@ app.use("/auth", usersRouter);
 const homeRouter = require("./routes/Home");
 app.use("/home", homeRouter);
 
+const searchRouter = require("./routes/Search");
+app.use("/search", searchRouter);
+
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");
 })

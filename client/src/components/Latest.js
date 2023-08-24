@@ -70,8 +70,17 @@ export default function Latest(props) {
                     <img src={item.profile_pic == null ? no_profile_pic : item.profile_pic} alt="Recipe picture" style={{height: "40px", width: "40px", marginRight: "5px"}} />
                     <span className='home-username'>{item.username}</span>
                   </p>
+
                   <img src={item.photo} alt="Recipe picture" className='img-fluid item-image' onClick={() => {moveToItem(item.id)}} />
+
                   <p className='home-title' style={{cursor: "pointer"}} onClick={() => {moveToItem(item.id)}}>{item.title}</p>
+
+                  <p>{item.payment == null ? 
+                    <span className="badge bg-success">FREE</span> : 
+                    <span class="badge bg-primary">&#8377;{item.payment}</span>
+                    }</p>
+                  {/* {item.payment} */}
+
                   <Star rating={item.rating} itemId={item.id}/>
                 </div>
               })

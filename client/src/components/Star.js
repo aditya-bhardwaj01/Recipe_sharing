@@ -11,7 +11,7 @@ export default function Star(props) {
             starHtml += "<span class='fa fa-star single-star'></span>";
         }
         if(partialRate != 0){
-            starHtml += "<span>p</span>";
+            starHtml += "<i class='fa fa-star-half-full partial-star'></i>";
             rateInt = rateInt+1;
         }
         for(let i=0; i<5-rateInt; i++){
@@ -23,7 +23,7 @@ export default function Star(props) {
     return (
         <div>
             <div className="star-rating">
-                <span>{props.rating} </span>
+                <span style={{fontSize: "16px"}}>{props.rating} </span>
                 <span id={"star"+props.itemId}></span>
             </div>
         </div>

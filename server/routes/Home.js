@@ -25,7 +25,7 @@ const getProfilePic = (item) => {
 
 const fetchRecipes = (dishtype) => {
     return new Promise((resolve, reject) => {
-        db.query("SELECT id, title, photo, username, rating FROM posts WHERE category=?", [dishtype], async (err, result) => {
+        db.query("SELECT id, title, photo, username, rating, payment FROM posts WHERE category=?", [dishtype], async (err, result) => {
             if (err) {
                 reject(err);
             } else {
