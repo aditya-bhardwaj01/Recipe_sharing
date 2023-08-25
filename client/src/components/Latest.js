@@ -77,7 +77,7 @@ export default function Latest(props) {
 
                   <p>{item.payment == null ? 
                     <span className="badge bg-success">FREE</span> : 
-                    <span class="badge bg-primary">&#8377;{item.payment}</span>
+                    <span className="badge bg-primary">&#8377;{item.payment}</span>
                     }</p>
                   {/* {item.payment} */}
 

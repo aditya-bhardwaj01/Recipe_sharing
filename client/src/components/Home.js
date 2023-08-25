@@ -5,12 +5,12 @@ import Typed from 'typed.js';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Latest from './Latest';
+import SearchHome from './SearchHome';
 
 export default function Home() {
   const typedTextRef = useRef(null);
 
   const dishes = ["Appetizers", "Main Course", "Side Dishes", "Soups and Stews", "Desserts", "Beverages"];
-  // const dishes = ["Side Dishes"];
 
   useEffect(() => {
     const options = {
@@ -44,11 +44,11 @@ export default function Home() {
     <div className='Home'>
       <div className="top-home">
         <Navbar />
-        {/* <h1>Cook, Share, Delight - The Recipe Way!!</h1> */}
         <h1><span ref={typedTextRef}></span></h1>
       </div>
 
       <div className="bottom-home">
+        <SearchHome />
         {dishes.map((dish, index) => (
           <div key={index} className="single-dish" data-aos="zoom-in">
             <Latest dishType={dish} />

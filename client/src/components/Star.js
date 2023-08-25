@@ -8,14 +8,14 @@ export default function Star(props) {
         // console.log(partialRate)
         var starHtml = ""
         for(let i = 0; i<rateInt; i++){
-            starHtml += "<span class='fa fa-star single-star'></span>";
+            starHtml += "<span className='fa fa-star single-star'></span>";
         }
         if(partialRate != 0){
-            starHtml += "<i class='fa fa-star-half-full partial-star'></i>";
+            starHtml += "<i className='fa fa-star-half-full partial-star'></i>";
             rateInt = rateInt+1;
         }
         for(let i=0; i<5-rateInt; i++){
-            starHtml += "<span class='fa fa-star'></span>";
+            starHtml += "<span className='fa fa-star'></span>";
         }
         document.getElementById("star"+props.itemId).innerHTML = starHtml
     }, [])
