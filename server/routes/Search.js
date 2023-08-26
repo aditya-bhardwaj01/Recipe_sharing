@@ -67,33 +67,33 @@ const getRecipeTypes = (recipetype) => {
 }
 
 router.post('/username', async (req, res) => {
-    const username = req.body.searched;
+    const username = req.body.search;
 
     try{
         const usernames = await getUsernames(username)
-        res.json({usernames: usernames});
+        res.json({result: usernames});
     } catch(error) {
         res.json({error: "There was a error fetching the result!"});
     }
 })
 
 router.post('/name', async (req, res) => {
-    const name = req.body.searched;
+    const name = req.body.search;
 
     try{
         const names = await getNames(name)
-        res.json({names: names});
+        res.json({result: names});
     } catch(error) {
         res.json({error: "There was a error fetching the result!"});
     }
 })
 
 router.post('/recipename', async (req, res) => {
-    const recipename = req.body.recipename;
+    const recipename = req.body.search;
 
     try{
         const recipenames = await getRecipeNames(recipename);
-        res.json({recipenames: recipenames})
+        res.json({result: recipenames})
     }
     catch(error){
         res.json({error: "There was a error fetching the result!"});
@@ -101,11 +101,11 @@ router.post('/recipename', async (req, res) => {
 })
 
 router.post('/recipetype', async (req, res) => {
-    const recipetype = req.body.recipetype;
+    const recipetype = req.body.search;
 
     try{
         const recipetypes = await getRecipeTypes(recipetype);
-        res.json({recipetypes: recipetypes})
+        res.json({result: recipetypes})
     }
     catch(error){
         res.json({error: "There was a error fetching the result!"});
