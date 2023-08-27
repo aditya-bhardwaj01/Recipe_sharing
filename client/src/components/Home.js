@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react'
 import Navbar from './Navbar'
 import './styling/Home.css'
 import Typed from 'typed.js';
-import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Latest from './Latest';
 import SearchHome from './SearchHome';
@@ -26,14 +25,6 @@ export default function Home() {
     };
 
     const typed = new Typed(typedTextRef.current, options);
-    AOS.init({
-      delay: 200,
-      duration: 600,
-      easing: 'ease',
-      once: false,
-      anchorPlacement: 'top-bottom',
-
-    });
 
     return () => {
       typed.destroy();
@@ -50,7 +41,7 @@ export default function Home() {
       <div className="bottom-home">
         <SearchHome />
         {dishes.map((dish, index) => (
-          <div key={index} className="single-dish" data-aos="zoom-in">
+          <div key={index} className="single-dish">
             <Latest dishType={dish} />
           </div>
         ))}

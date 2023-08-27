@@ -10,7 +10,6 @@ const db = mysql.createConnection({
 });
 
 const getUsernames = (username) => {
-    console.log(username)
     return new Promise((resolve, reject) => {
         db.query("SELECT username FROM users WHERE username like ?", [`%${username}%`],
         (err, result) => {

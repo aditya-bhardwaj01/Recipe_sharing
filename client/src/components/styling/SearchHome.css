@@ -14,22 +14,79 @@
 }
 
 .searchrecipe-box input{
-    height: 40px;
-    width: 70%;
+    /* border: solid red; */
     border: none;
+    height: 40px;
+    width: 70%;    
     border-radius: 5px;
     padding: 8px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 18px;
 }
 
+.searchrecipe-box-matchsearch p {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 1rem;
+    /* width: 70%; */
+    height: 40px;
+    box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08);
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    border-left: 0 solid grey;
+    transition: border-left 300ms ease-in-out, padding-left 300ms ease-in-out;
+}
+  
+.searchrecipe-box-matchsearch p:hover {
+  padding-left: 0.5rem;
+  border-left: 0.5rem solid greenyellow;
+}
+  
+.searchrecipe-box-matchsearch p > :first-child {
+  margin-top: 0;
+}
+  
+.searchrecipe-box-matchsearch p > :last-child {
+  margin-bottom: 0;
+}
+
+#searchrecipe-box-matchsearch{
+    max-height: 150px;
+    width: 72.5%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+}
+
+#searchrecipe-box-matchsearch::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  #searchrecipe-box-matchsearch::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  #searchrecipe-box-matchsearch::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  #searchrecipe-box-matchsearch::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the thumb on hover */
+  }
+
 @media only screen and (max-width: 730px) {
     .searchrecipe-box input{
         height: 35px;
-        width: 50%;
+        width: 60%;
     }
-
-    .searchrecipe-box input, .searchrecipe-box button{
+    .searchrecipe-box input, .searchrecipe-box button, .searchrecipe-box-matchsearch p{
         margin: 4px;
     }
+    #searchrecipe-box-matchsearch{
+        width: 65%; 
+    }
+    
 }

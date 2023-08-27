@@ -18,13 +18,22 @@ export default function SearchHome() {
 
     const unsetSearchState = () => {
         document.getElementById('search-home').disabled = true;
+        setSearchMatch([])
+        // document.getElementById('searchrecipe-box-matchsearch').hidden = false;
         setSearchState("")
     }
 
     const fetchMatchedSearch = (event) => {
         document.getElementById('search-home').disabled = true;
         const searchVal = event.target.value;
-        // console.log(val);
+
+        if(searchVal === ""){
+            setSearchMatch([])
+            // document.getElementById('searchrecipe-box-matchsearch').hidden = true;
+            return;
+        }
+        // document.getElementById('searchrecipe-box-matchsearch').hidden = false;
+        
         axios.post("http://localhost:3001/search/"+searchState, {
             search: searchVal
         })
@@ -66,14 +75,27 @@ export default function SearchHome() {
                         </div>
                         :
                         <div className='searchrecipe-box'>
+                            <button type="button" className="btn btn-dark btn-sm" onClick={unsetSearchState}>&larr;Go back</button>
                             <div className='searchrecipe-box-searchregion'>
                                 <input type="text" placeholder={"Search "+display} onChange={fetchMatchedSearch} />
                                 <button type="button" className="btn btn-success" id='search-home' disabled>Search</button>
-                                <button type="button" className="btn btn-dark" onClick={unsetSearchState}>&larr;Go back</button>
                             </div>
-                            <div className="searchrecipe-box-matchsearch">
-                                <p>hfherf</p>
-                                <p>fver</p>
+                            <div className="searchrecipe-box-matchsearch" id='searchrecipe-box-matchsearch'>
+                                {searchMatch.map((item, index) => {
+                                    let content = '';
+
+                                    if (item.username) {
+                                        content = item.username;
+                                    } else if (item.name) {
+                                        content = item.name;
+                                    } else if (item.title) {
+                                        content = item.title;
+                                    } else if (item.category) {
+                                        content = item.category;
+                                    }
+                                
+                                    return <p className='thing' key={index}>{content}</p>;
+                                })}
                             </div>
                         </div>
                 }

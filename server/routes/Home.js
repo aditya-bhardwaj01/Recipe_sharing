@@ -10,7 +10,6 @@ const db = mysql.createConnection({
 });
 
 const getProfilePic = (item) => {
-    console.log(item.username)
     return new Promise((resolve, reject) => {
         db.query("Select profile_pic from userdetails where username=?", [item.username], (err, result) => {
             if(err){
