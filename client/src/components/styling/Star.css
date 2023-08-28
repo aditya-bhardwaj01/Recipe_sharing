@@ -1,4 +1,27 @@
-.single-star, .partial-star{
-    color: #FFA41C;
-    font-size: 18px;
-}
+
+.full-yellow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: yellow;
+    clip-path: polygon(50% 0%, 61% 38%, 100% 38%, 68% 61%, 79% 100%, 50% 76%, 21% 100%, 32% 61%, 0% 38%, 39% 38%);
+  }
+  
+  /* Half-yellow star */
+  .half-yellow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: linear-gradient(to right, yellow 50%, #303030 50%);
+    clip-path: polygon(50% 0%, 61% 38%, 100% 38%, 68% 61%, 79% 100%, 50% 76%, 21% 100%, 32% 61%, 0% 38%, 39% 38%);
+  }
+  
+  /* Fully black star */
+  .full-black {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: #303030;
+    clip-path: polygon(50% 0%, 61% 38%, 100% 38%, 68% 61%, 79% 100%, 50% 76%, 21% 100%, 32% 61%, 0% 38%, 39% 38%);
+  }
+  
