@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2023 at 07:34 PM
+-- Generation Time: Aug 29, 2023 at 09:44 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -34,27 +34,38 @@ CREATE TABLE `posts` (
   `category` varchar(255) NOT NULL,
   `userid` int(10) NOT NULL,
   `username` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `rating` float NOT NULL,
   `payment` int(10) DEFAULT NULL,
-  `date_time` datetime NOT NULL DEFAULT current_timestamp()
+  `date_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `cooking_method` varchar(255) DEFAULT NULL,
+  `cuisines` varchar(255) DEFAULT NULL,
+  `courses` varchar(255) DEFAULT NULL,
+  `difficulty` varchar(255) DEFAULT NULL,
+  `prep_time` int(10) DEFAULT NULL,
+  `cook_time` int(10) DEFAULT NULL,
+  `rest_time` int(10) DEFAULT NULL,
+  `total_time` int(10) DEFAULT NULL,
+  `calories` int(10) DEFAULT NULL,
+  `best_season` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `title`, `photo`, `category`, `userid`, `username`, `rating`, `payment`, `date_time`) VALUES
-(1, 'Example Recipe1', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 4.7, 300, '2023-08-01 17:01:51'),
-(2, 'Example recipe2', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Main Course', 3, 'aditya125', 4.5, NULL, '2023-08-03 00:00:00'),
-(3, 'Example recipe3', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Side Dishes', 2, 'aditya124', 3, 50, '2023-01-11 11:03:32'),
-(4, 'Example recipe4', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Soups and Stews', 3, 'aditya125', 2, NULL, '2023-08-15 17:01:51'),
-(5, 'Example recipe5', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Desserts', 2, 'aditya124', 3.1, 500, '2023-01-14 00:00:00'),
-(6, 'Example recipe6', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Beverages', 2, 'aditya124', 3.7, NULL, '2023-08-15 21:55:56'),
-(7, 'Example recipe7', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 5, NULL, '2023-08-15 21:57:58'),
-(8, 'Example recipe8', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 3.2, 1000, '2023-08-15 21:59:36'),
-(9, 'Example recipe9', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 2.4, 40, '2023-08-15 21:59:36'),
-(10, 'Example recipe10', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 4.2, NULL, '2023-08-15 22:01:36'),
-(11, 'Example recipe11', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 3.1, 127, '2023-08-15 22:01:36');
+INSERT INTO `posts` (`id`, `title`, `photo`, `category`, `userid`, `username`, `name`, `rating`, `payment`, `date_time`, `cooking_method`, `cuisines`, `courses`, `difficulty`, `prep_time`, `cook_time`, `rest_time`, `total_time`, `calories`, `best_season`) VALUES
+(1, 'Example Recipe1', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 4.7, 300, '2023-08-01 17:01:51', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
+(2, 'Example recipe2', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Main Course', 3, 'aditya125', 'Bhardwaj Aditya', 4.5, NULL, '2023-08-03 00:00:00', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
+(3, 'Example recipe3', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Side Dishes', 2, 'aditya124', 'Aditya Bhardwaj', 3, 50, '2023-01-11 11:03:32', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
+(4, 'Example recipe4', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Soups and Stews', 3, 'aditya125', 'Bhardwaj Aditya', 2, NULL, '2023-08-15 17:01:51', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
+(5, 'Example recipe5', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Desserts', 2, 'aditya124', 'Aditya Bhardwaj', 3.1, 500, '2023-01-14 00:00:00', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
+(6, 'Example recipe6', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Beverages', 2, 'aditya124', 'Aditya Bhardwaj', 3.7, NULL, '2023-08-15 21:55:56', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
+(7, 'Example recipe7', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 'Bhardwaj Aditya', 5, NULL, '2023-08-15 21:57:58', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
+(8, 'Example recipe8', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 3.2, 1000, '2023-08-15 21:59:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
+(9, 'Example recipe9', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 2.4, 40, '2023-08-15 21:59:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
+(10, 'Example recipe10', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 'Bhardwaj Aditya', 4.2, NULL, '2023-08-15 22:01:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Dinner', 'Hard', 15, 45, 10, 70, 2300, 'Spring'),
+(11, 'Example recipe11', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 3.1, 127, '2023-08-15 22:01:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Dinner', 'Hard', 15, 45, 10, 70, 2300, 'Spring');
 
 -- --------------------------------------------------------
 

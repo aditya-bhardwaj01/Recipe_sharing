@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router';
 import './styling/SearchHome.css'
 import axios from 'axios'
 import swal from "sweetalert";
@@ -6,7 +7,9 @@ import swal from "sweetalert";
 export default function SearchHome() {
     const [searchState, setSearchState] = useState("")
     const [display, setDisplay] = useState("")
+    const [searchContent, setSearchContent] = useState("")
     const [searchMatch, setSearchMatch] = useState([])
+    const navigate = useNavigate()
 
     const searchBy = (state) => {
         setSearchState(state)
@@ -19,8 +22,21 @@ export default function SearchHome() {
     const unsetSearchState = () => {
         document.getElementById('search-home').disabled = true;
         setSearchMatch([])
-        // document.getElementById('searchrecipe-box-matchsearch').hidden = false;
         setSearchState("")
+    }
+
+    const searchResultClicked = (content) => {
+        document.getElementById('search-home').disabled = false;
+        document.getElementById('search-home-input-box').value = content
+        setSearchContent(content)
+    }
+
+    const moveToSearchResult = () => {
+        document.getElementById('search-home').disabled = true;
+        setSearchMatch([])
+        setSearchState("")
+        navigate(`/${searchState}/${searchContent}`)
+        // console.log(searchState, searchContent)
     }
 
     const fetchMatchedSearch = (event) => {
@@ -29,10 +45,8 @@ export default function SearchHome() {
 
         if(searchVal === ""){
             setSearchMatch([])
-            // document.getElementById('searchrecipe-box-matchsearch').hidden = true;
             return;
         }
-        // document.getElementById('searchrecipe-box-matchsearch').hidden = false;
         
         axios.post("http://localhost:3001/search/"+searchState, {
             search: searchVal
@@ -77,24 +91,33 @@ export default function SearchHome() {
                         <div className='searchrecipe-box'>
                             <button type="button" className="btn btn-dark btn-sm" onClick={unsetSearchState}>&larr;Go back</button>
                             <div className='searchrecipe-box-searchregion'>
-                                <input type="text" placeholder={"Search "+display} onChange={fetchMatchedSearch} />
-                                <button type="button" className="btn btn-success" id='search-home' disabled>Search</button>
+                                <input type="text" id='search-home-input-box' placeholder={"Search "+display} onChange={fetchMatchedSearch} />
+                                <button type="button" className="btn btn-success" id='search-home' onClick={moveToSearchResult}>
+                                    Search
+                                </button>
                             </div>
                             <div className="searchrecipe-box-matchsearch" id='searchrecipe-box-matchsearch'>
                                 {searchMatch.map((item, index) => {
+                                    // let keyFound = '';
                                     let content = '';
 
                                     if (item.username) {
+                                        // keyFound = 'username'
                                         content = item.username;
                                     } else if (item.name) {
+                                        // keyFound = 'name'
                                         content = item.name;
                                     } else if (item.title) {
+                                        // keyFound = 'recipename'
                                         content = item.title;
                                     } else if (item.category) {
+                                        // keyFound = 'recipetype'
                                         content = item.category;
                                     }
                                 
-                                    return <p className='thing' key={index}>{content}</p>;
+                                    return <p className='thing' key={index} onClick={() => searchResultClicked(content)}>
+                                        {content}
+                                    </p>;
                                 })}
                             </div>
                         </div>
