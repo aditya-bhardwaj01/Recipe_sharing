@@ -1,0 +1,17 @@
+.SearchResult{
+    min-height: 100vh;
+}
+
+.mainarea-searchresult{
+    padding: 2vh;
+}
+
+.searchresult-display{
+    margin-top: 1.5vh;
+    padding: 0.8vh;
+}
+
+.searchresult-single{
+    margin: 15px 0;
+    border: solid green;
+}
