@@ -7,11 +7,81 @@
 }
 
 .searchresult-display{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-top: 1.5vh;
     padding: 0.8vh;
 }
 
 .searchresult-single{
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    border-radius: 5px;
     margin: 15px 0;
-    border: solid green;
+    padding: 0 2vh;
+    /* border: solid green; */
+}
+
+.single-result-section{
+    /* max-height: 300px; */
+    /* border: solid blue; */
+}
+.single-result-section div{
+    /* border: solid red; */
+}
+.section-1{
+
+}
+.section-11{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+}
+.section-11 img{
+    border-radius: 5px;
+    height: 70%;
+    width: 90%;
+}
+.section-11 button{
+    margin-top: 5px;
+    width: 90%;
+}
+.section-12{
+    padding: 10px;
+}
+
+.section-2{}
+.section-21{
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+}
+.section-22{
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    border-right: none;
+}
+
+.section-3{}
+.section-31{
+    
+}
+.section-32{
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
 }
