@@ -2,12 +2,23 @@
     min-height: 100vh;
 }
 
+.not-found-search-result{
+    text-align: center;
+    margin-top: 15vh;
+}
+.not-found-search-result img{
+    height: 30vh;
+    width: 30vh;
+    border-radius: 15vh;
+    margin-top: 30px;
+}
+
 .mainarea-searchresult{
     padding: 2vh;
 }
 
 .searchresult-display{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-top: 1.5vh;
     padding: 0.8vh;
 }
@@ -65,17 +76,19 @@
     border-left: none;
     border-right: none;
     text-align: center;
+    min-height: 50px;
 }
 .section-22{
     border-style: solid;
     border-width: thin;
     border-color: grey;
     border-right: none;
+    min-height: 50px;
 }
 
 .section-3{}
 .section-31{
-    
+    min-height: 50px;
 }
 .section-32{
     border-style: solid;
@@ -84,4 +97,46 @@
     border-top: none;
     border-right: none;
     border-bottom: none;
+    min-height: 50px;
 }
+@media (max-width: 575px) {
+    .section-11{
+        border-style: solid;
+        border-width: thin;
+        border-color: grey;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+    .section-2{
+        font-size: 14px;
+    }
+    .section-3{
+        font-size: 14px;
+    }
+
+    .section-21{
+        border-style: solid;
+        border-width: thin;
+        border-color: grey;
+        border-left: none;
+        border-right: none;
+    }
+    .section-22{
+        border-style: solid;
+        border-width: thin;
+        border-color: grey;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+    }
+    .section-32{
+        border-style: solid;
+        border-width: thin;
+        border-color: grey;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        
+    }
+  }
