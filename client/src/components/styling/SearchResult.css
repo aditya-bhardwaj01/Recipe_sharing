@@ -13,6 +13,20 @@
     margin-top: 30px;
 }
 
+.filter-single{
+    margin: 4vh 0;
+}
+.filter-single h6{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.filter-single label{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0 10px 0 0;
+}
+.filter-single input{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .mainarea-searchresult{
     padding: 2vh;
 }

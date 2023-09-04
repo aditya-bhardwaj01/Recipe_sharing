@@ -8,15 +8,30 @@ import cooking_method from "./img/cooking_methods.png"
 import cuisines from "./img/cuisines.png"
 import courses from "./img/courses.png"
 import payment from "./img/payment.png"
-import difficulty from "./img/difficulty.png"
+import difficultyLogo from "./img/difficulty.png"
 import clock from "./img/clock.png"
 import calorie from "./img/calorie.png"
 import season from "./img/season.png"
 import noResult from "./img/not-found.gif"
+import filter from "./img/filter.png"
+import Star from './Star'
 
 export default function SearchResult() {
     let { searchtype, searchvalue } = useParams()
     const navigate = useNavigate()
+
+    const [minCost, setMinCost] = useState(0)
+    const [maxCost, setMaxCost] = useState(10000000)
+    const [minRating, setMinRating] = useState(0)
+    const [maxRating, setMaxRating] = useState(5)
+    const [minTime, setMinTime] = useState(0)
+    const [maxTime, setMaxTime] = useState(10000000)
+    const [minCalorie, setMinCalorie] = useState(0)
+    const [maxCalorie, setMaxCalorie] = useState(10000000)
+
+    const [difficulty, setDifficulty] = useState(['Easy', 'Intermediate', 'Hard'])
+    const [season, setSeason] = useState(['Summer', 'Winter', 'Rainy', 'Spring', 'Autumn'])
+
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -31,7 +46,7 @@ export default function SearchResult() {
     useEffect(() => {
         axios.post("http://localhost:3001/searchresult", {
             searchtype: searchtype,
-            searchvalue: searchvalue
+            searchvalue: searchvalue,
         })
             .then((response) => {
                 if (response.data.error) {
@@ -50,6 +65,17 @@ export default function SearchResult() {
             })
     }, [searchtype, searchvalue])
 
+    const openModal = () => {
+        document.getElementById('cost-from').value = minCost
+        document.getElementById('cost-to').value = maxCost
+        document.getElementById('rating-from').value = minRating
+        document.getElementById('rating-to').value = maxRating
+        document.getElementById('time-from').value = minTime
+        document.getElementById('time-to').value = maxTime
+        document.getElementById('calorie-from').value = minCalorie
+        document.getElementById('calorie-to').value = maxCalorie
+    }
+
     return (
         <div className='SearchResult'>
             {
@@ -66,12 +92,104 @@ export default function SearchResult() {
                                 </div>
                                 :
                                 <div className="searchresult-display">
+
+
+
+                                    <div className="searchresult-filter">
+                                        <button type="button" className="btn" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={openModal}>
+                                            <img src={filter} alt="Filter" style={{ height: '25px', width: '25px' }} />
+                                            <span style={{ fontWeight: 'bold' }}>FILTER</span>
+                                        </button>
+
+                                        <div className="modal fade modal-lg" id="filterModal" tabIndex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="filterModalLabel">Apply Filters</h5>
+                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <div className="cost-filter filter-single">
+                                                            <h6>Cost</h6>
+                                                            <div className="row">
+                                                                <p className="col-sm-6">
+                                                                    <label for="cost-from">From:</label>
+                                                                    <input type="text" id="cost-from" placeholder='Minimum Cost' name="cost-from" ></input>
+                                                                </p>
+
+                                                                <p className="col-sm-6">
+                                                                    <label for="cost-to">To:</label>
+                                                                    <input type="text" id="cost-to" placeholder='Maximum Cost' name="cost-to" ></input>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="rating-filter filter-single">
+                                                            <h6>Rating</h6>
+                                                            <div className="row">
+                                                                <p className="col-sm-6">
+                                                                    <label for="rating-from">From:</label>
+                                                                    <input type="text" id="rating-from" placeholder='Minimum Rating' name="rating-from" ></input>
+                                                                </p>
+
+                                                                <p className="col-sm-6">
+                                                                    <label for="rating-to">To:</label>
+                                                                    <input type="text" id="rating-to" placeholder='Maximum Rating' name="rating-to" ></input>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="time-filter filter-single">
+                                                            <h6>Total time</h6>
+                                                            <div className="row">
+                                                                <p className="col-sm-6">
+                                                                    <label for="time-from">From:</label>
+                                                                    <input type="text" id="time-from" placeholder='Minimum Time' name="time-from" ></input>
+                                                                </p>
+
+                                                                <p className="col-sm-6">
+                                                                    <label for="time-to">To:</label>
+                                                                    <input type="text" id="time-to" placeholder='Maximum Time' name="time-to" ></input>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="calorie-filter filter-single">
+                                                            <h6>Calories</h6>
+                                                            <div className="row">
+                                                                <p className="col-sm-6">
+                                                                    <label for="calorie-from">From:</label>
+                                                                    <input type="text" id="calorie-from" placeholder='Minimum Calories' name="calorie-from" ></input>
+                                                                </p>
+
+                                                                <p className="col-sm-6">
+                                                                    <label for="calorie-to">To:</label>
+                                                                    <input type="text" id="calorie-to" placeholder='Maximum Calories' name="calorie-to" ></input>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="difficulty-filter filter-single">
+                                                            <h6>Difficulty</h6>
+                                                        </div>
+                                                        <div className="season-filter filter-single">
+                                                            <h6>Season</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Apply</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
                                     {items.map((item, index) => (
                                         <div key={index} className="searchresult-single">
                                             <div className="single-result-section section-1 row">
                                                 <div className="section-11 col-sm-4">
                                                     <img src={item.photo} alt="" />
-                                                    <button type="button" class="btn btn-success btn-lg btn-block" onClick={() => { moveToItem(item.id) }}>
+                                                    <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => { moveToItem(item.id) }}>
                                                         View
                                                     </button>
                                                 </div>
@@ -103,34 +221,37 @@ export default function SearchResult() {
                                                             </span>
                                                         }
                                                     </p>
+                                                    <p>
+                                                        <Star rating={item.rating} itemId={item.id} />
+                                                    </p>
                                                 </div>
                                             </div>
 
                                             <div className="single-result-section section-2 row">
                                                 <div className="section-21 col-sm-3">
                                                     <p>
-                                                        <span style={{ fontWeight: 'bold' }}><img src={difficulty} alt="difficulty" style={{ height: '20px', width: '16px' }} /> Difficulty: </span>
+                                                        <span style={{ fontWeight: 'bold' }}><img src={difficultyLogo} alt="difficulty" style={{ height: '20px', width: '16px' }} /> Difficulty: </span>
                                                     </p>
                                                     <p style={{ color: item.difficulty === 'Easy' ? 'Green' : item.difficulty === 'Hard' ? 'Red' : 'Orange', fontWeight: 'bold', fontStyle: 'italic' }}>{item.difficulty}</p>
                                                 </div>
                                                 <div className="section-22 col-sm-9">
                                                     <div className="row">
                                                         <span className='col-4' style={{ textAlign: 'center' }}>
-                                                            <span class="badge rounded-pill bg-info">Prep time:</span>
+                                                            <span className="badge rounded-pill bg-info">Prep time:</span>
                                                             <p style={{ fontWeight: 'bold', fontStyle: 'italic' }}>{item.prep_time} mins</p>
                                                         </span>
                                                         <span className='col-4' style={{ textAlign: 'center' }}>
-                                                            <span class="badge rounded-pill bg-info">Cook time:</span>
+                                                            <span className="badge rounded-pill bg-info">Cook time:</span>
                                                             <p style={{ fontWeight: 'bold', fontStyle: 'italic' }}>{item.cook_time} mins</p>
                                                         </span>
                                                         <span className='col-4' style={{ textAlign: 'center' }}>
-                                                            <span class="badge rounded-pill bg-info">Rest time:</span>
+                                                            <span className="badge rounded-pill bg-info">Rest time:</span>
                                                             <p style={{ fontWeight: 'bold', fontStyle: 'italic' }}>{item.rest_time} mins</p>
                                                         </span>
                                                     </div>
                                                     <div style={{ textAlign: 'center' }}>
                                                         <span style={{ textAlign: 'center' }}>
-                                                            <span class="badge rounded-pill bg-success" style={{ marginTop: '5px' }}>
+                                                            <span className="badge rounded-pill bg-success" style={{ marginTop: '5px' }}>
                                                                 <img src={clock} alt="total time" style={{ height: '20px', width: '20px' }} />
                                                                 Total time
                                                             </span>
