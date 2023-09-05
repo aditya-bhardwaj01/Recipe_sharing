@@ -167,14 +167,50 @@ export default function SearchResult() {
                                                         </div>
                                                         <div className="difficulty-filter filter-single">
                                                             <h6>Difficulty</h6>
+                                                            <div className="row">
+                                                                <p className="col-sm-4">
+                                                                    <input type="checkbox" id="easy-diff" name="easy" value="Easy" checked={difficulty.includes("Easy")} />
+                                                                    <label for="easy-diff" style={{color: 'green'}}>&nbsp;Easy</label><br></br>
+                                                                </p>
+                                                                <p className="col-sm-4">
+                                                                    <input type="checkbox" id="intermediate-diff" name="intermediate" value="Intermediate" checked={difficulty.includes("Intermediate")} />
+                                                                    <label for="intermediate-diff" style={{color: 'orange'}}>&nbsp;Intermediate</label><br></br>
+                                                                </p>
+                                                                <p className="col-sm-4">
+                                                                    <input type="checkbox" id="hard-diff" name="hard" value="Hard"  checked={difficulty.includes("Hard")} />
+                                                                    <label for="hard-diff" style={{color: 'red'}}>&nbsp;Hard</label><br></br>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                         <div className="season-filter filter-single">
                                                             <h6>Season</h6>
+                                                            <div className="row">
+                                                                <p className="col-sm">
+                                                                    <input type="checkbox" id="summer-season" name="summer" value="Summer" checked={season.includes("Summer")} />
+                                                                    <label for="summer-season">&nbsp;Summer</label><br></br>
+                                                                </p>
+                                                                <p className="col-sm">
+                                                                    <input type="checkbox" id="winter-season" name="winter" value="Winter" checked={season.includes("Winter")} />
+                                                                    <label for="winter-season">&nbsp;Winter</label><br></br>
+                                                                </p>
+                                                                <p className="col-sm">
+                                                                    <input type="checkbox" id="rainy-season" name="rainy" value="Rainy"  checked={season.includes("Rainy")} />
+                                                                    <label for="rainy-season">&nbsp;Rainy</label><br></br>
+                                                                </p>
+                                                                <p className="col-sm">
+                                                                    <input type="checkbox" id="spring-season" name="spring" value="Spring"  checked={season.includes("Spring")} />
+                                                                    <label for="spring-season">&nbsp;Spring</label><br></br>
+                                                                </p>
+                                                                <p className="col-sm">
+                                                                    <input type="checkbox" id="autumn-season" name="autumn" value="Autumn"  checked={season.includes("Autumn")} />
+                                                                    <label for="autumn-season">&nbsp;Autumn</label><br></br>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className="modal-footer">
                                                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Apply</button>
+                                                        <button type="button" className="btn btn-primary">Apply</button>
                                                     </div>
                                                 </div>
                                             </div>
