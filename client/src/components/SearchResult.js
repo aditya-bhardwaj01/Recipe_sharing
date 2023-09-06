@@ -30,7 +30,10 @@ export default function SearchResult() {
     const [maxCalorie, setMaxCalorie] = useState(10000000)
 
     const [difficulty, setDifficulty] = useState(['Easy', 'Intermediate', 'Hard'])
+    const [tempDifficulty, setTempDifficulty] = useState(['Easy', 'Intermediate', 'Hard'])
+
     const [season, setSeason] = useState(['Summer', 'Winter', 'Rainy', 'Spring', 'Autumn'])
+    const [tempSeason, setTempSeason] = useState(['Summer', 'Winter', 'Rainy', 'Spring', 'Autumn'])
 
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
@@ -43,7 +46,7 @@ export default function SearchResult() {
         navigate('/item/' + itemId)
     }
 
-    useEffect(() => {
+    const loadResult = () => {
         axios.post("http://localhost:3001/searchresult", {
             searchtype: searchtype,
             searchvalue: searchvalue,
@@ -63,6 +66,10 @@ export default function SearchResult() {
                 }
                 setLoading(false)
             })
+    }
+
+    useEffect(() => {
+        loadResult();
     }, [searchtype, searchvalue])
 
     const openModal = () => {
@@ -74,6 +81,48 @@ export default function SearchResult() {
         document.getElementById('time-to').value = maxTime
         document.getElementById('calorie-from').value = minCalorie
         document.getElementById('calorie-to').value = maxCalorie
+        setTempDifficulty(difficulty);
+        setTempSeason(season)
+    }
+
+    const handleCheckboxChangeForDifficulty = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setTempDifficulty([...tempDifficulty, value])
+        } else {
+            setTempDifficulty(tempDifficulty.filter((item) => item !== value))
+        }
+    }
+
+    const handleCheckboxChangeForSeason = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setTempSeason([...tempSeason, value])
+        } else {
+            setTempSeason(tempSeason.filter((item) => item !== value))
+        }
+    }
+
+    const applyFilter = () => {
+        const currMnCost = document.getElementById('cost-from').value;
+        const currMxCost = document.getElementById('cost-to').value;
+
+        const currMnRate = document.getElementById('rating-from').value;
+        const currMxRate = document.getElementById('rating-to').value;
+
+        const currMnTime = document.getElementById('time-from').value;
+        const currMxTime = document.getElementById('time-to').value;
+
+        const currMnCalorie = document.getElementById('calorie-from').value;
+        const currMxCalorie = document.getElementById('calorie-to').value;
+        
+        console.log(currMnCost, currMxCost);
+        console.log(currMnRate, currMxRate);
+        console.log(currMnTime, currMxTime);
+        console.log(currMnCalorie, currMxCalorie);
+        console.log(tempDifficulty, tempSeason);
     }
 
     return (
@@ -113,12 +162,12 @@ export default function SearchResult() {
                                                             <h6>Cost</h6>
                                                             <div className="row">
                                                                 <p className="col-sm-6">
-                                                                    <label for="cost-from">From:</label>
+                                                                    <label htmlFor="cost-from">From:</label>
                                                                     <input type="text" id="cost-from" placeholder='Minimum Cost' name="cost-from" ></input>
                                                                 </p>
 
                                                                 <p className="col-sm-6">
-                                                                    <label for="cost-to">To:</label>
+                                                                    <label htmlFor="cost-to">To:</label>
                                                                     <input type="text" id="cost-to" placeholder='Maximum Cost' name="cost-to" ></input>
                                                                 </p>
                                                             </div>
@@ -127,12 +176,12 @@ export default function SearchResult() {
                                                             <h6>Rating</h6>
                                                             <div className="row">
                                                                 <p className="col-sm-6">
-                                                                    <label for="rating-from">From:</label>
+                                                                    <label htmlFor="rating-from">From:</label>
                                                                     <input type="text" id="rating-from" placeholder='Minimum Rating' name="rating-from" ></input>
                                                                 </p>
 
                                                                 <p className="col-sm-6">
-                                                                    <label for="rating-to">To:</label>
+                                                                    <label htmlFor="rating-to">To:</label>
                                                                     <input type="text" id="rating-to" placeholder='Maximum Rating' name="rating-to" ></input>
                                                                 </p>
                                                             </div>
@@ -141,12 +190,12 @@ export default function SearchResult() {
                                                             <h6>Total time</h6>
                                                             <div className="row">
                                                                 <p className="col-sm-6">
-                                                                    <label for="time-from">From:</label>
+                                                                    <label htmlFor="time-from">From:</label>
                                                                     <input type="text" id="time-from" placeholder='Minimum Time' name="time-from" ></input>
                                                                 </p>
 
                                                                 <p className="col-sm-6">
-                                                                    <label for="time-to">To:</label>
+                                                                    <label htmlFor="time-to">To:</label>
                                                                     <input type="text" id="time-to" placeholder='Maximum Time' name="time-to" ></input>
                                                                 </p>
                                                             </div>
@@ -155,12 +204,12 @@ export default function SearchResult() {
                                                             <h6>Calories</h6>
                                                             <div className="row">
                                                                 <p className="col-sm-6">
-                                                                    <label for="calorie-from">From:</label>
+                                                                    <label htmlFor="calorie-from">From:</label>
                                                                     <input type="text" id="calorie-from" placeholder='Minimum Calories' name="calorie-from" ></input>
                                                                 </p>
 
                                                                 <p className="col-sm-6">
-                                                                    <label for="calorie-to">To:</label>
+                                                                    <label htmlFor="calorie-to">To:</label>
                                                                     <input type="text" id="calorie-to" placeholder='Maximum Calories' name="calorie-to" ></input>
                                                                 </p>
                                                             </div>
@@ -169,16 +218,16 @@ export default function SearchResult() {
                                                             <h6>Difficulty</h6>
                                                             <div className="row">
                                                                 <p className="col-sm-4">
-                                                                    <input type="checkbox" id="easy-diff" name="easy" value="Easy" checked={difficulty.includes("Easy")} />
-                                                                    <label for="easy-diff" style={{color: 'green'}}>&nbsp;Easy</label><br></br>
+                                                                    <input type="checkbox" id="easy-diff" name="easy" value="Easy" checked={tempDifficulty.includes("Easy")} onChange={handleCheckboxChangeForDifficulty} />
+                                                                    <label htmlFor="easy-diff" style={{ color: 'green' }}>&nbsp;Easy</label><br></br>
                                                                 </p>
                                                                 <p className="col-sm-4">
-                                                                    <input type="checkbox" id="intermediate-diff" name="intermediate" value="Intermediate" checked={difficulty.includes("Intermediate")} />
-                                                                    <label for="intermediate-diff" style={{color: 'orange'}}>&nbsp;Intermediate</label><br></br>
+                                                                    <input type="checkbox" id="intermediate-diff" name="intermediate" value="Intermediate" checked={tempDifficulty.includes("Intermediate")} onChange={handleCheckboxChangeForDifficulty} />
+                                                                    <label htmlFor="intermediate-diff" style={{ color: 'orange' }}>&nbsp;Intermediate</label><br></br>
                                                                 </p>
                                                                 <p className="col-sm-4">
-                                                                    <input type="checkbox" id="hard-diff" name="hard" value="Hard"  checked={difficulty.includes("Hard")} />
-                                                                    <label for="hard-diff" style={{color: 'red'}}>&nbsp;Hard</label><br></br>
+                                                                    <input type="checkbox" id="hard-diff" name="hard" value="Hard" checked={tempDifficulty.includes("Hard")} onChange={handleCheckboxChangeForDifficulty} />
+                                                                    <label htmlFor="hard-diff" style={{ color: 'red' }}>&nbsp;Hard</label><br></br>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -186,31 +235,31 @@ export default function SearchResult() {
                                                             <h6>Season</h6>
                                                             <div className="row">
                                                                 <p className="col-sm">
-                                                                    <input type="checkbox" id="summer-season" name="summer" value="Summer" checked={season.includes("Summer")} />
-                                                                    <label for="summer-season">&nbsp;Summer</label><br></br>
+                                                                    <input type="checkbox" id="summer-season" name="summer" value="Summer" checked={tempSeason.includes("Summer")} onChange={handleCheckboxChangeForSeason} />
+                                                                    <label htmlFor="summer-season">&nbsp;Summer</label><br></br>
                                                                 </p>
                                                                 <p className="col-sm">
-                                                                    <input type="checkbox" id="winter-season" name="winter" value="Winter" checked={season.includes("Winter")} />
-                                                                    <label for="winter-season">&nbsp;Winter</label><br></br>
+                                                                    <input type="checkbox" id="winter-season" name="winter" value="Winter" checked={tempSeason.includes("Winter")} onChange={handleCheckboxChangeForSeason} />
+                                                                    <label htmlFor="winter-season">&nbsp;Winter</label><br></br>
                                                                 </p>
                                                                 <p className="col-sm">
-                                                                    <input type="checkbox" id="rainy-season" name="rainy" value="Rainy"  checked={season.includes("Rainy")} />
-                                                                    <label for="rainy-season">&nbsp;Rainy</label><br></br>
+                                                                    <input type="checkbox" id="rainy-season" name="rainy" value="Rainy" checked={tempSeason.includes("Rainy")} onChange={handleCheckboxChangeForSeason} />
+                                                                    <label htmlFor="rainy-season">&nbsp;Rainy</label><br></br>
                                                                 </p>
                                                                 <p className="col-sm">
-                                                                    <input type="checkbox" id="spring-season" name="spring" value="Spring"  checked={season.includes("Spring")} />
-                                                                    <label for="spring-season">&nbsp;Spring</label><br></br>
+                                                                    <input type="checkbox" id="spring-season" name="spring" value="Spring" checked={tempSeason.includes("Spring")} onChange={handleCheckboxChangeForSeason} />
+                                                                    <label htmlFor="spring-season">&nbsp;Spring</label><br></br>
                                                                 </p>
                                                                 <p className="col-sm">
-                                                                    <input type="checkbox" id="autumn-season" name="autumn" value="Autumn"  checked={season.includes("Autumn")} />
-                                                                    <label for="autumn-season">&nbsp;Autumn</label><br></br>
+                                                                    <input type="checkbox" id="autumn-season" name="autumn" value="Autumn" checked={tempSeason.includes("Autumn")} onChange={handleCheckboxChangeForSeason} />
+                                                                    <label htmlFor="autumn-season">&nbsp;Autumn</label><br></br>
                                                                 </p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="modal-footer">
                                                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" className="btn btn-primary">Apply</button>
+                                                        <button type="button" className="btn btn-primary" onClick={applyFilter}>Apply</button>
                                                     </div>
                                                 </div>
                                             </div>
