@@ -11,7 +11,7 @@ import payment from "./img/payment.png"
 import difficultyLogo from "./img/difficulty.png"
 import clock from "./img/clock.png"
 import calorie from "./img/calorie.png"
-import season from "./img/season.png"
+import seasonLogo from "./img/season.png"
 import noResult from "./img/not-found.gif"
 import filter from "./img/filter.png"
 import Star from './Star'
@@ -38,6 +38,7 @@ export default function SearchResult() {
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
 
+    var currMnCost = 0, currMxCost = 10000000, currMnRate = 0, currMxRate = 5, currMnTime = 0, currMxTime = 10000000, currMnCalorie = 0, currMxCalorie = 10000000;
     const goToHome = () => {
         navigate('/home')
     }
@@ -47,9 +48,21 @@ export default function SearchResult() {
     }
 
     const loadResult = () => {
+        console.log(currMnCost, currMxCost, currMnRate, currMxRate)
+        setLoading(true)
         axios.post("http://localhost:3001/searchresult", {
             searchtype: searchtype,
             searchvalue: searchvalue,
+            mnCost: parseFloat(currMnCost),
+            mxCost: parseFloat(currMxCost),
+            mnRating: parseFloat(currMnRate),
+            mxRating: parseFloat(currMxRate),
+            mnTime: parseFloat(currMnTime),
+            mxTime: parseFloat(currMxTime),
+            mnCalorie: parseFloat(currMnCalorie),
+            mxCalorie: parseFloat(currMxCalorie),
+            difficulty: tempDifficulty,
+            season: tempSeason
         })
             .then((response) => {
                 if (response.data.error) {
@@ -63,6 +76,17 @@ export default function SearchResult() {
                 }
                 else {
                     setItems(response.data.item);
+                    setMinCost()
+                    setMinCost(currMnCost);
+                    setMaxCost(currMxCost);
+                    setMinRating(currMnRate);
+                    setMaxRating(currMxRate);
+                    setMinTime(currMnTime);
+                    setMaxTime(currMxTime);
+                    setMinCalorie(currMnCalorie);
+                    setMaxCalorie(currMxCalorie);
+                    setDifficulty(tempDifficulty);
+                    setSeason(tempSeason);
                 }
                 setLoading(false)
             })
@@ -106,23 +130,60 @@ export default function SearchResult() {
     }
 
     const applyFilter = () => {
-        const currMnCost = document.getElementById('cost-from').value;
-        const currMxCost = document.getElementById('cost-to').value;
+        const regex = /^-?\d+(\.\d+)?$/;
+        currMnCost = document.getElementById('cost-from').value;
+        currMxCost = document.getElementById('cost-to').value;
 
-        const currMnRate = document.getElementById('rating-from').value;
-        const currMxRate = document.getElementById('rating-to').value;
+        currMnRate = document.getElementById('rating-from').value;
+        currMxRate = document.getElementById('rating-to').value;
 
-        const currMnTime = document.getElementById('time-from').value;
-        const currMxTime = document.getElementById('time-to').value;
+        currMnTime = document.getElementById('time-from').value;
+        currMxTime = document.getElementById('time-to').value;
 
-        const currMnCalorie = document.getElementById('calorie-from').value;
-        const currMxCalorie = document.getElementById('calorie-to').value;
-        
-        console.log(currMnCost, currMxCost);
-        console.log(currMnRate, currMxRate);
-        console.log(currMnTime, currMxTime);
-        console.log(currMnCalorie, currMxCalorie);
-        console.log(tempDifficulty, tempSeason);
+        currMnCalorie = document.getElementById('calorie-from').value;
+        currMxCalorie = document.getElementById('calorie-to').value;
+
+        if (!regex.test(currMnCost) || !regex.test(currMxCost)) {
+            swal({
+                title: "Failed!",
+                text: "Provide proper input for cost!!",
+                icon: "warning",
+                timer: 5000,
+                button: false
+            });
+        } else if (!regex.test(currMnRate) || !regex.test(currMxRate)) {
+            swal({
+                title: "Failed!",
+                text: "Provide proper input for rating!!",
+                icon: "warning",
+                timer: 5000,
+                button: false
+            });
+        } else if (!regex.test(currMnTime) || !regex.test(currMxTime)) {
+            swal({
+                title: "Failed!",
+                text: "Provide proper input for time!!",
+                icon: "warning",
+                timer: 5000,
+                button: false
+            });
+        } else if (!regex.test(currMnCalorie) || !regex.test(currMxCalorie)) {
+            swal({
+                title: "Failed!",
+                text: "Provide proper input for calorie!!",
+                icon: "warning",
+                timer: 5000,
+                button: false
+            });
+        } else {
+            loadResult()
+        }
+
+        // console.log(currMnCost, currMxCost);
+        // console.log(currMnRate, currMxRate);
+        // console.log(currMnTime, currMxTime);
+        // console.log(currMnCalorie, currMxCalorie);
+        // console.log(tempDifficulty, tempSeason);
     }
 
     return (
@@ -133,6 +194,128 @@ export default function SearchResult() {
                     :
                     <div className='mainarea-searchresult'>
                         <button type="button" className="btn btn-dark btn-sm" onClick={goToHome}>&larr;Go back</button>
+                        <div className="searchresult-filter" style={{marginTop: '20px'}}>
+                            <button type="button" className="btn" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={openModal}>
+                                <img src={filter} alt="Filter" style={{ height: '25px', width: '25px' }} />
+                                <span style={{ fontWeight: 'bold' }}>FILTER</span>
+                            </button>
+
+                            <div className="modal fade modal-lg" id="filterModal" tabIndex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="filterModalLabel">Apply Filters</h5>
+                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <div className="cost-filter filter-single">
+                                                <h6>Cost</h6>
+                                                <div className="row">
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="cost-from">From:</label>
+                                                        <input type="text" id="cost-from" placeholder='Minimum Cost' name="cost-from" ></input>
+                                                    </p>
+
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="cost-to">To:</label>
+                                                        <input type="text" id="cost-to" placeholder='Maximum Cost' name="cost-to" ></input>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="rating-filter filter-single">
+                                                <h6>Rating</h6>
+                                                <div className="row">
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="rating-from">From:</label>
+                                                        <input type="text" id="rating-from" placeholder='Minimum Rating' name="rating-from" ></input>
+                                                    </p>
+
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="rating-to">To:</label>
+                                                        <input type="text" id="rating-to" placeholder='Maximum Rating' name="rating-to" ></input>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="time-filter filter-single">
+                                                <h6>Total time</h6>
+                                                <div className="row">
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="time-from">From:</label>
+                                                        <input type="text" id="time-from" placeholder='Minimum Time' name="time-from" ></input>
+                                                    </p>
+
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="time-to">To:</label>
+                                                        <input type="text" id="time-to" placeholder='Maximum Time' name="time-to" ></input>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="calorie-filter filter-single">
+                                                <h6>Calories</h6>
+                                                <div className="row">
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="calorie-from">From:</label>
+                                                        <input type="text" id="calorie-from" placeholder='Minimum Calories' name="calorie-from" ></input>
+                                                    </p>
+
+                                                    <p className="col-sm-6">
+                                                        <label htmlFor="calorie-to">To:</label>
+                                                        <input type="text" id="calorie-to" placeholder='Maximum Calories' name="calorie-to" ></input>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="difficulty-filter filter-single">
+                                                <h6>Difficulty</h6>
+                                                <div className="row">
+                                                    <p className="col-sm-4">
+                                                        <input type="checkbox" id="easy-diff" name="easy" value="Easy" checked={tempDifficulty.includes("Easy")} onChange={handleCheckboxChangeForDifficulty} />
+                                                        <label htmlFor="easy-diff" style={{ color: 'green' }}>&nbsp;Easy</label><br></br>
+                                                    </p>
+                                                    <p className="col-sm-4">
+                                                        <input type="checkbox" id="intermediate-diff" name="intermediate" value="Intermediate" checked={tempDifficulty.includes("Intermediate")} onChange={handleCheckboxChangeForDifficulty} />
+                                                        <label htmlFor="intermediate-diff" style={{ color: 'orange' }}>&nbsp;Intermediate</label><br></br>
+                                                    </p>
+                                                    <p className="col-sm-4">
+                                                        <input type="checkbox" id="hard-diff" name="hard" value="Hard" checked={tempDifficulty.includes("Hard")} onChange={handleCheckboxChangeForDifficulty} />
+                                                        <label htmlFor="hard-diff" style={{ color: 'red' }}>&nbsp;Hard</label><br></br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="season-filter filter-single">
+                                                <h6>Season</h6>
+                                                <div className="row">
+                                                    <p className="col-sm">
+                                                        <input type="checkbox" id="summer-season" name="summer" value="Summer" checked={tempSeason.includes("Summer")} onChange={handleCheckboxChangeForSeason} />
+                                                        <label htmlFor="summer-season">&nbsp;Summer</label><br></br>
+                                                    </p>
+                                                    <p className="col-sm">
+                                                        <input type="checkbox" id="winter-season" name="winter" value="Winter" checked={tempSeason.includes("Winter")} onChange={handleCheckboxChangeForSeason} />
+                                                        <label htmlFor="winter-season">&nbsp;Winter</label><br></br>
+                                                    </p>
+                                                    <p className="col-sm">
+                                                        <input type="checkbox" id="rainy-season" name="rainy" value="Rainy" checked={tempSeason.includes("Rainy")} onChange={handleCheckboxChangeForSeason} />
+                                                        <label htmlFor="rainy-season">&nbsp;Rainy</label><br></br>
+                                                    </p>
+                                                    <p className="col-sm">
+                                                        <input type="checkbox" id="spring-season" name="spring" value="Spring" checked={tempSeason.includes("Spring")} onChange={handleCheckboxChangeForSeason} />
+                                                        <label htmlFor="spring-season">&nbsp;Spring</label><br></br>
+                                                    </p>
+                                                    <p className="col-sm">
+                                                        <input type="checkbox" id="autumn-season" name="autumn" value="Autumn" checked={tempSeason.includes("Autumn")} onChange={handleCheckboxChangeForSeason} />
+                                                        <label htmlFor="autumn-season">&nbsp;Autumn</label><br></br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" className="btn btn-primary" onClick={applyFilter} data-bs-dismiss="modal">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                         {
                             items.length === 0 ?
                                 <div className='not-found-search-result'>
@@ -144,128 +327,7 @@ export default function SearchResult() {
 
 
 
-                                    <div className="searchresult-filter">
-                                        <button type="button" className="btn" data-bs-toggle="modal" data-bs-target="#filterModal" onClick={openModal}>
-                                            <img src={filter} alt="Filter" style={{ height: '25px', width: '25px' }} />
-                                            <span style={{ fontWeight: 'bold' }}>FILTER</span>
-                                        </button>
 
-                                        <div className="modal fade modal-lg" id="filterModal" tabIndex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-                                            <div className="modal-dialog">
-                                                <div className="modal-content">
-                                                    <div className="modal-header">
-                                                        <h5 className="modal-title" id="filterModalLabel">Apply Filters</h5>
-                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div className="modal-body">
-                                                        <div className="cost-filter filter-single">
-                                                            <h6>Cost</h6>
-                                                            <div className="row">
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="cost-from">From:</label>
-                                                                    <input type="text" id="cost-from" placeholder='Minimum Cost' name="cost-from" ></input>
-                                                                </p>
-
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="cost-to">To:</label>
-                                                                    <input type="text" id="cost-to" placeholder='Maximum Cost' name="cost-to" ></input>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="rating-filter filter-single">
-                                                            <h6>Rating</h6>
-                                                            <div className="row">
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="rating-from">From:</label>
-                                                                    <input type="text" id="rating-from" placeholder='Minimum Rating' name="rating-from" ></input>
-                                                                </p>
-
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="rating-to">To:</label>
-                                                                    <input type="text" id="rating-to" placeholder='Maximum Rating' name="rating-to" ></input>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="time-filter filter-single">
-                                                            <h6>Total time</h6>
-                                                            <div className="row">
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="time-from">From:</label>
-                                                                    <input type="text" id="time-from" placeholder='Minimum Time' name="time-from" ></input>
-                                                                </p>
-
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="time-to">To:</label>
-                                                                    <input type="text" id="time-to" placeholder='Maximum Time' name="time-to" ></input>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="calorie-filter filter-single">
-                                                            <h6>Calories</h6>
-                                                            <div className="row">
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="calorie-from">From:</label>
-                                                                    <input type="text" id="calorie-from" placeholder='Minimum Calories' name="calorie-from" ></input>
-                                                                </p>
-
-                                                                <p className="col-sm-6">
-                                                                    <label htmlFor="calorie-to">To:</label>
-                                                                    <input type="text" id="calorie-to" placeholder='Maximum Calories' name="calorie-to" ></input>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="difficulty-filter filter-single">
-                                                            <h6>Difficulty</h6>
-                                                            <div className="row">
-                                                                <p className="col-sm-4">
-                                                                    <input type="checkbox" id="easy-diff" name="easy" value="Easy" checked={tempDifficulty.includes("Easy")} onChange={handleCheckboxChangeForDifficulty} />
-                                                                    <label htmlFor="easy-diff" style={{ color: 'green' }}>&nbsp;Easy</label><br></br>
-                                                                </p>
-                                                                <p className="col-sm-4">
-                                                                    <input type="checkbox" id="intermediate-diff" name="intermediate" value="Intermediate" checked={tempDifficulty.includes("Intermediate")} onChange={handleCheckboxChangeForDifficulty} />
-                                                                    <label htmlFor="intermediate-diff" style={{ color: 'orange' }}>&nbsp;Intermediate</label><br></br>
-                                                                </p>
-                                                                <p className="col-sm-4">
-                                                                    <input type="checkbox" id="hard-diff" name="hard" value="Hard" checked={tempDifficulty.includes("Hard")} onChange={handleCheckboxChangeForDifficulty} />
-                                                                    <label htmlFor="hard-diff" style={{ color: 'red' }}>&nbsp;Hard</label><br></br>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="season-filter filter-single">
-                                                            <h6>Season</h6>
-                                                            <div className="row">
-                                                                <p className="col-sm">
-                                                                    <input type="checkbox" id="summer-season" name="summer" value="Summer" checked={tempSeason.includes("Summer")} onChange={handleCheckboxChangeForSeason} />
-                                                                    <label htmlFor="summer-season">&nbsp;Summer</label><br></br>
-                                                                </p>
-                                                                <p className="col-sm">
-                                                                    <input type="checkbox" id="winter-season" name="winter" value="Winter" checked={tempSeason.includes("Winter")} onChange={handleCheckboxChangeForSeason} />
-                                                                    <label htmlFor="winter-season">&nbsp;Winter</label><br></br>
-                                                                </p>
-                                                                <p className="col-sm">
-                                                                    <input type="checkbox" id="rainy-season" name="rainy" value="Rainy" checked={tempSeason.includes("Rainy")} onChange={handleCheckboxChangeForSeason} />
-                                                                    <label htmlFor="rainy-season">&nbsp;Rainy</label><br></br>
-                                                                </p>
-                                                                <p className="col-sm">
-                                                                    <input type="checkbox" id="spring-season" name="spring" value="Spring" checked={tempSeason.includes("Spring")} onChange={handleCheckboxChangeForSeason} />
-                                                                    <label htmlFor="spring-season">&nbsp;Spring</label><br></br>
-                                                                </p>
-                                                                <p className="col-sm">
-                                                                    <input type="checkbox" id="autumn-season" name="autumn" value="Autumn" checked={tempSeason.includes("Autumn")} onChange={handleCheckboxChangeForSeason} />
-                                                                    <label htmlFor="autumn-season">&nbsp;Autumn</label><br></br>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="modal-footer">
-                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" className="btn btn-primary" onClick={applyFilter}>Apply</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
 
 
 
@@ -298,7 +360,7 @@ export default function SearchResult() {
                                                     </p>
                                                     <p>
 
-                                                        {item.payment == null ?
+                                                        {item.payment === 0 ?
                                                             <span className="badge bg-success">FREE</span> :
                                                             <span style={{ fontWeight: 'bold' }}>
                                                                 <img src={payment} alt="payment" style={{ height: '20px', width: '16px' }} /> <span> </span>
@@ -355,7 +417,7 @@ export default function SearchResult() {
                                                 </div>
                                                 <div className="section-32 col-sm-9" style={{ textAlign: 'center' }}>
                                                     <p>
-                                                        <span style={{ fontWeight: 'bold' }}><img src={season} alt="season" style={{ height: '20px', width: '20px' }} /> Best Season: </span>
+                                                        <span style={{ fontWeight: 'bold' }}><img src={seasonLogo} alt="season" style={{ height: '20px', width: '20px' }} /> Best Season: </span>
                                                     </p>
                                                     <p style={{ fontWeight: 'bold', fontStyle: 'italic' }}>{item.best_season}</p>
                                                 </div>
