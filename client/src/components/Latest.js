@@ -75,7 +75,7 @@ export default function Latest(props) {
 
                   <p className='home-title' style={{cursor: "pointer"}} onClick={() => {moveToItem(item.id)}}>{item.title}</p>
 
-                  <p>{item.payment == null ? 
+                  <p>{item.payment === 0 ? 
                     <span className="badge bg-success">FREE</span> : 
                     <span className="badge bg-primary">&#8377;{item.payment}</span>
                     }</p>

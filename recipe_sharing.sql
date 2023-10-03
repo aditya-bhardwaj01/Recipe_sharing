@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2023 at 09:44 AM
+-- Generation Time: Sep 29, 2023 at 12:35 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(10) NOT NULL,
+  `buyer_id` int(10) NOT NULL,
+  `post_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `buyer_id`, `post_id`) VALUES
+(1, 2, 4),
+(2, 3, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
@@ -36,7 +56,7 @@ CREATE TABLE `posts` (
   `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `rating` float NOT NULL,
-  `payment` int(10) DEFAULT NULL,
+  `payment` float NOT NULL,
   `date_time` datetime NOT NULL DEFAULT current_timestamp(),
   `cooking_method` varchar(255) DEFAULT NULL,
   `cuisines` varchar(255) DEFAULT NULL,
@@ -55,17 +75,30 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `photo`, `category`, `userid`, `username`, `name`, `rating`, `payment`, `date_time`, `cooking_method`, `cuisines`, `courses`, `difficulty`, `prep_time`, `cook_time`, `rest_time`, `total_time`, `calories`, `best_season`) VALUES
-(1, 'Example Recipe1', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 4.7, 300, '2023-08-01 17:01:51', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
-(2, 'Example recipe2', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Main Course', 3, 'aditya125', 'Bhardwaj Aditya', 4.5, NULL, '2023-08-03 00:00:00', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
-(3, 'Example recipe3', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Side Dishes', 2, 'aditya124', 'Aditya Bhardwaj', 3, 50, '2023-01-11 11:03:32', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
-(4, 'Example recipe4', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Soups and Stews', 3, 'aditya125', 'Bhardwaj Aditya', 2, NULL, '2023-08-15 17:01:51', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
-(5, 'Example recipe5', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Desserts', 2, 'aditya124', 'Aditya Bhardwaj', 3.1, 500, '2023-01-14 00:00:00', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
-(6, 'Example recipe6', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Beverages', 2, 'aditya124', 'Aditya Bhardwaj', 3.7, NULL, '2023-08-15 21:55:56', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
-(7, 'Example recipe7', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 'Bhardwaj Aditya', 5, NULL, '2023-08-15 21:57:58', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
+(1, 'Example Recipe1', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 4.7, 300.5, '2023-08-01 17:01:51', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 1050, 'Summer'),
+(2, 'Example recipe2', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Main Course', 3, 'aditya125', 'Bhardwaj Aditya', 4.5, 0, '2023-08-03 00:00:00', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 2000, 'Summer'),
+(3, 'Example recipe3', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Side Dishes', 2, 'aditya124', 'Aditya Bhardwaj', 3, 50, '2023-01-11 11:03:32', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 3000, 'Summer'),
+(4, 'Example recipe4', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Soups and Stews', 3, 'aditya125', 'Bhardwaj Aditya', 2, 400, '2023-08-15 17:01:51', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 4000, 'Summer'),
+(5, 'Example recipe5', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Desserts', 2, 'aditya124', 'Aditya Bhardwaj', 3.1, 500, '2023-01-14 00:00:00', 'Frying, Grilling', 'Chinese, French, Indian', 'Breakfast', 'Easy', 10, 10, 5, 25, 6000, 'Summer'),
+(6, 'Example recipe6', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Beverages', 2, 'aditya124', 'Aditya Bhardwaj', 3.7, 0, '2023-08-15 21:55:56', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
+(7, 'Example recipe7', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 'Bhardwaj Aditya', 5, 0, '2023-08-15 21:57:58', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 7000, 'Winter'),
 (8, 'Example recipe8', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 3.2, 1000, '2023-08-15 21:59:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
-(9, 'Example recipe9', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 2.4, 40, '2023-08-15 21:59:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 5000, 'Winter'),
-(10, 'Example recipe10', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 'Bhardwaj Aditya', 4.2, NULL, '2023-08-15 22:01:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Dinner', 'Hard', 15, 45, 10, 70, 2300, 'Spring'),
-(11, 'Example recipe11', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 3.1, 127, '2023-08-15 22:01:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Dinner', 'Hard', 15, 45, 10, 70, 2300, 'Spring');
+(9, 'Example recipe9', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 2.4, 40, '2023-08-15 21:59:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Lunch', 'Intermediate', 15, 8, 3, 26, 8000, 'Winter'),
+(10, 'Example recipe10', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 3, 'aditya125', 'Bhardwaj Aditya', 4.2, 0, '2023-08-15 22:01:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Dinner', 'Hard', 15, 45, 10, 70, 2300, 'Spring'),
+(11, 'Example recipe11', 'https://static.vecteezy.com/system/resources/previews/000/964/198/original/fast-food-meal-set-vector.jpg', 'Appetizers', 2, 'aditya124', 'Aditya Bhardwaj', 3.1, 127, '2023-09-27 15:00:36', 'Frying, Grilling', 'Chinese, French, Indian', 'Dinner', 'Hard', 15, 45, 10, 70, 2300, 'Spring');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
+  `post_id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `review` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -109,16 +142,29 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `phone`, `email`, `name`) VALUES
 (2, 'aditya124', '$2b$10$qQkJUX.Ih7rGSRVAFWu3veZ5u.NF2ZfHDTiXjRlmK.BN9vTCDVS.W', '7256891970', 'adibhardwaj444@gmail.com', 'Aditya Bhardwaj'),
 (3, 'aditya125', '$2b$10$wOQEoOlQCSBA8FvJF/2ZVOXHgr3k1iWu0Anu4uQuLh0rm1AbNlIt.', '7256891970', 'letstravel010101@gmail.com', 'Bhardwaj Aditya'),
-(4, 'aditya127', '$2b$10$U4.ns.uLooyIt6uo33hYJuYYsEkmbqQ3q2Q5ZwmvrKCeIqsq8iakS', '7256891970', 'aditya.bhardwaj2020@vitstudent.ac.in', 'Aditya');
+(4, 'aditya127', '$2b$10$U4.ns.uLooyIt6uo33hYJuYYsEkmbqQ3q2Q5ZwmvrKCeIqsq8iakS', '7256891970', 'aditya.bhardwaj2020@vitstudent.ac.in', 'Aditya'),
+(5, 'aditya126', '$2b$10$NTgu5dU0jX9ExaURD5.xfuuK5gyLOGCO.rF9jizXWTICP3AHIxM/y', '7256891970', 'aditya.bhardwaj20022111@gmail.com', 'Aditya Bhardwaj');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -138,10 +184,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `userdetails`
@@ -153,7 +211,7 @@ ALTER TABLE `userdetails`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

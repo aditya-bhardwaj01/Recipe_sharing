@@ -1,0 +1,62 @@
+.Item{
+    min-height: 100vh;
+}
+
+.itemspec-main{
+    /* border: solid black; */
+    padding: 2vh;
+}
+
+.itemspec-prelim-left{
+    /* border: solid red; */
+    padding: 10px;
+    text-align: center;
+}
+
+.itemspec-prelim-left img{
+    /* border: solid blue; */
+    border-radius: 10px;
+}
+
+.itemspec-prelim-right{
+    /* border: solid green; */
+}
+
+.item-prelim-right-top{
+    margin-bottom: 25px;
+}
+
+.single-item-detail{
+    margin: 10px;
+    font-size: 18px;
+}
+
+.single-item-detail b:hover, .single-item-detail img:hover, .single-item-detail-top b:hover, .single-item-detail-top img:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 498px) {
+    .itemspec-prelim-left img{
+        max-height: 70vh;
+        max-width: 70vh;
+    }
+}
+
+.hover-element {
+    cursor: pointer;
+}
+
+.hover-element:hover .hover-text {
+    opacity: 1; /* Show the element on hover */
+}
+
+.hover-text {
+    opacity: 0; /* Initially hidden */
+    transition-property: opacity; /* Specify the property to transition */
+    transition-duration: 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+}

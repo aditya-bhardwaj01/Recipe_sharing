@@ -74,16 +74,16 @@ export default function SearchHome() {
                 {
                     searchState === "" ?
                         <div className='searchstate-buttons d-flex justify-content-around'>
-                            <button type="button" className="btn btn-outline-primary" style={{ margin: "10px" }} onClick={() => searchBy('username')}>
+                            <button type="button" className="btn btn-outline-primary" style={{ margin: "10px", width: '200px' }} onClick={() => searchBy('username')}>
                                 Search by User name
                             </button>
-                            <button type="button" className="btn btn-outline-success" style={{ margin: "10px" }} onClick={() => searchBy('name')}>
+                            <button type="button" className="btn btn-outline-success" style={{ margin: "10px", width: '200px' }} onClick={() => searchBy('name')}>
                                 Search by Name
                             </button>
-                            <button type="button" className="btn btn-outline-danger" style={{ margin: "10px" }} onClick={() => searchBy('recipename')}>
+                            <button type="button" className="btn btn-outline-danger" style={{ margin: "10px", width: '200px' }} onClick={() => searchBy('recipename')}>
                                 Search by Recipe name
                             </button>
-                            <button type="button" className="btn btn-outline-dark" style={{ margin: "10px" }} onClick={() => searchBy('recipetype')}>
+                            <button type="button" className="btn btn-outline-dark" style={{ margin: "10px", width: '200px' }} onClick={() => searchBy('recipetype')}>
                                 Search by Recipe type
                             </button>
                         </div>

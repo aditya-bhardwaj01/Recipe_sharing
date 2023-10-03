@@ -8,16 +8,16 @@ export default function Star(props) {
     let partialRate = Math.ceil((props.rating - rateInt) * 100);
 
     for (let i = 0; i < rateInt; i++) {
-      starHtml += '<span class="full-yellow"></span>';
+      starHtml += '<span className="full-yellow"></span>';
     }
 
     if (partialRate !== 0) {
-      starHtml += '<span class="half-yellow"></span>';
+      starHtml += '<span className="half-yellow"></span>';
       rateInt = rateInt + 1;
     }
 
     for (let i = 0; i < 5 - rateInt; i++) {
-      starHtml += '<span class="full-black"></span>';
+      starHtml += '<span className="full-black"></span>';
     }
 
     if (starHtml !== '') {

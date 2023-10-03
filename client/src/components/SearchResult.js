@@ -48,7 +48,6 @@ export default function SearchResult() {
     }
 
     const loadResult = () => {
-        console.log(currMnCost, currMxCost, currMnRate, currMxRate)
         setLoading(true)
         axios.post("http://localhost:3001/searchresult", {
             searchtype: searchtype,

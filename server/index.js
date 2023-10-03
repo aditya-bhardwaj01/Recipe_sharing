@@ -19,6 +19,9 @@ app.use("/search", searchRouter);
 const searchResultRouter = require("./routes/SearchResult");
 app.use("/searchresult", searchResultRouter);
 
+const itemSpecificationRouter = require("./routes/ItemSpecification")
+app.use("/itemspec", itemSpecificationRouter)
+
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");
 })

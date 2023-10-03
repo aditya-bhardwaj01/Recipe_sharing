@@ -25,15 +25,11 @@ const fetchSearchResult = (req) => {
         season
     } = req.body;
 
-    console.log(req.body);
-
     // Create a new variable to hold the updated searchtype
     let updatedSearchtype = searchtype;
 
     if (searchtype === 'recipename') updatedSearchtype = 'title';
     else if (searchtype === 'recipetype') updatedSearchtype = 'category';
-
-    console.log(req.body);
 
     const conditions = [
         `${updatedSearchtype} = ?`,
